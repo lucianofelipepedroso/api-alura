@@ -9,18 +9,18 @@ import med.voll.api.domain.endereco.DadosEndereco;
 
 public record DadosCadastroPaciente( 
 		
-		@NotBlank
+		@NotBlank(message = "{nome.obrigatorio}")
 		String nome,
-		@NotBlank
-		@Email
+		@NotBlank(message = "{email.obrigatorio}")
+	    @Email(message = "{email.invalido}")
         String email,
-        @NotBlank
+        @NotBlank(message = "{telefone.obrigatorio}")
         @Pattern (regexp = "^(\\+\\d{1,2}\\s?)?1?\\-?\\.?\\s?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$")
         String telefone,
-        @NotBlank
+        @NotBlank(message = "{cpf.obrigatorio}")
         @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}")
         String cpf,
-        @NotNull
+        @NotNull(message = "{endereco.obrigatorio}")
 		@Valid
         DadosEndereco endereco) {
 
