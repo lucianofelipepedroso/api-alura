@@ -30,11 +30,12 @@ public class Usuario implements UserDetails {
 	private Long id;
 	private String login;
 	private String senha;
+	private String perfil;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+		return List.of(new SimpleGrantedAuthority(perfil));
 
 	}
 
