@@ -40,11 +40,14 @@ public class AgendaDeConsultas {
 		
 		var paciente = pacienteRepository.findById(dados.idPaciente()).get();
 		var medico = escolherMedico(dados);
+		if(medico==null) {
+			throw new ValidacaoException("Médico não dispnível para esta data");
+		}
 		
 		var consulta = new Consulta(null, medico, paciente, dados.data(), null);
 		consultaRepository.save(consulta);
 
-		return null;
+		return new DadosDetalhamentoConsulta(consulta);
 	}
 
 	private Medico escolherMedico(DadosAgendamentoConsulta dados) {

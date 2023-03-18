@@ -1,8 +1,5 @@
 package med.voll.api.infra.exception;
 
-import java.util.List;
-
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.persistence.EntityNotFoundException;
+import med.voll.api.domain.exception.ValidacaoException;
 
 @RestControllerAdvice
 public class TratadorDeErros {
@@ -33,6 +31,12 @@ public class TratadorDeErros {
 
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity tratarErro400(HttpMessageNotReadableException ex) {
+		return ResponseEntity.badRequest().body(ex.getMessage());
+	}
+	
+	
+	@ExceptionHandler(ValidacaoException.class)
+	public ResponseEntity tratarErroRegraDeNegocio(ValidacaoException ex) {
 		return ResponseEntity.badRequest().body(ex.getMessage());
 	}
 
